@@ -49,13 +49,43 @@ func serverStart(opt *setting.Setting) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusOK)
 			encoder := json.NewEncoder(w)
-			encoder.Encode("OK")
+			encoder.Encode(info(r))
 		})
 	})
 
 	err := http.ListenAndServe(fmt.Sprintf(":%d", opt.ListenPort), r)
 	if err != nil {
 		panic(err.Error())
+	}
+}
+
+type infomation struct {
+	ServerInfo  serverInfo  `json:"ServerInfo"`
+	RequestInfo requestInfo `json:"RequestInfo"`
+}
+
+type serverInfo struct {
+	Hostname string `json:"Hostname"`
+}
+
+type requestInfo struct {
+	Host           string `json:"Host"`
+	XForwardedHost string `json:"X-Forwarded-Host"`
+	XForwardedFor  string `json:"X-Forwarded-For"`
+}
+
+func info(r *http.Request) infomation {
+	hostname, _ := os.Hostname()
+
+	return infomation{
+		ServerInfo: serverInfo{
+			Hostname: hostname,
+		},
+		RequestInfo: requestInfo{
+			Host:           r.Host,
+			XForwardedHost: r.Header.Get("X-Forwarded-Host"),
+			XForwardedFor:  r.Header.Get("X-Forwarded-For"),
+		},
 	}
 }
 
