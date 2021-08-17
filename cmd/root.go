@@ -69,9 +69,10 @@ type serverInfo struct {
 }
 
 type requestInfo struct {
-	Host           string `json:"Host"`
-	XForwardedHost string `json:"X-Forwarded-Host"`
-	XForwardedFor  string `json:"X-Forwarded-For"`
+	Host           string      `json:"Host"`
+	XForwardedHost string      `json:"X-Forwarded-Host"`
+	XForwardedFor  string      `json:"X-Forwarded-For"`
+	Headers        http.Header `json:"headers"`
 }
 
 func info(r *http.Request) infomation {
@@ -85,6 +86,7 @@ func info(r *http.Request) infomation {
 			Host:           r.Host,
 			XForwardedHost: r.Header.Get("X-Forwarded-Host"),
 			XForwardedFor:  r.Header.Get("X-Forwarded-For"),
+			Headers:        r.Header,
 		},
 	}
 }
