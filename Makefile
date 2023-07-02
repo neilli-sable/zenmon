@@ -22,7 +22,7 @@ update:
 build:
 	rm -rf $(BUILD_DIR)
 	mkdir -p $(BUILD_DIR)
-	go build -ldflags="-s" -o $(BUILD_DIR)/bin/$(APPNAME)
+	CGO_ENABLED=0 go build -ldflags="-s" -o $(BUILD_DIR)/bin/$(APPNAME)
 
 compress:
 	upx $(BUILD_DIR)/bin/$(APPNAME)
