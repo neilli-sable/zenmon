@@ -1,4 +1,4 @@
-FROM ghcr.io/neilli-sable/golang-with-webpack AS build-env
+FROM ghcr.io/neilli-sable/golang-with-webpack:master AS build-env
 ADD . /workdir
 WORKDIR /workdir
 RUN make build && make compress
