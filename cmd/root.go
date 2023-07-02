@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	"github.com/neilli-sable/zenmon/setting"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
