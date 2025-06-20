@@ -3,7 +3,7 @@ module github.com/neilli-sable/zenmon
 go 1.20
 
 require (
-	github.com/go-chi/chi/v5 v5.0.8
+	github.com/go-chi/chi/v5 v5.2.2
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.16.0
 )
